@@ -1,3 +1,6 @@
 [submodule "SHM-website"]
 	path = SHM-website
 	url = https://github.com/aseivane/SHM-website
+[submodule "E-SIC"]
+	path = E-SIC
+	url = https://github.com/jaatadia/E-SIC
