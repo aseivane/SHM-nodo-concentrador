@@ -49,14 +49,14 @@ services:
         aliases:
           - backend.local
     
-  busybox:
-    container_name: busybox
-    image: busybox:glibc
+  #busybox:
+  #  container_name: busybox
+  #  image: busybox:glibc
 
-    networks:
-      my_network:
-        aliases:
-          - busybox.local
+  #  networks:
+  #    my_network:
+  #      aliases:
+  #        - busybox.local
 
     
 
