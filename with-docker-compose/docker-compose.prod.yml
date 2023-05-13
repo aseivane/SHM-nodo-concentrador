@@ -25,6 +25,8 @@ services:
       my_network:    
         aliases:
           - shm.com
+    ports:
+      - "3000:3000"
     expose:
       - "3000"
     environment:
