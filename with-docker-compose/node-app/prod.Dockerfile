@@ -12,8 +12,6 @@ RUN adduser --system --uid 1001 nodejs
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN npm config set unsafe-perm true
-
 RUN npm install
 # If you are building your code for production
 # RUN npm ci --omit=dev
