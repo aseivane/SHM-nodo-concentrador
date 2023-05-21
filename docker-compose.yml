@@ -77,6 +77,10 @@ services:
         published: 9001
         protocol: tcp
         mode: host
+    networks:
+      my_network:    
+        aliases:
+          - mosquitto.shm.com
 
 volumes:
   data:
