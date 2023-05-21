@@ -15,7 +15,7 @@ services:
   next-app:
     container_name: frontend
     build:
-      context: ./next-app
+      context: "C:\\Users\\user\\Documents\\Facu\\TP profesional\\SHM-React-website\\shm-nextjs-website"
       dockerfile: Dockerfile
       args:
         ENV_VARIABLE: ${ENV_VARIABLE}
@@ -25,6 +25,8 @@ services:
       my_network:    
         aliases:
           - frontend.shm.com
+    ports:
+      - "3000:3000"
     expose:
       - "3000"
     environment:
@@ -34,13 +36,15 @@ services:
   node-app:
     container_name: backend
     build:
-      context: ./node-app
+      context: "C:\\Users\\user\\Documents\\Facu\\TP profesional\\SHM-website"
       dockerfile: Dockerfile
       args:
         ENV_VARIABLE: ${ENV_VARIABLE}
     restart: always
+    ports:
+      - "3001:3000"
     expose:
-      - "3000"
+      - "3001"
     networks:
       my_network:
         aliases:
@@ -56,7 +60,7 @@ services:
         - UID=${UID}
     volumes:
       - type: bind
-        source: ./mosquitto//config/
+        source: ./mosquitto/config/
         target: /mosquitto/config/
       - type: bind
         source: ./mosquitto/log/
