@@ -36,7 +36,7 @@ services:
   node-app:
     container_name: backend
     build:
-      context: "C:\\Users\\user\\Documents\\Facu\\TP profesional\\SHM-website"
+      context: ./SHM-website
       dockerfile: Dockerfile
       args:
         ENV_VARIABLE: ${ENV_VARIABLE}
