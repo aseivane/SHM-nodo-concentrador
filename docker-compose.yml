@@ -15,7 +15,7 @@ services:
   next-app:
     container_name: frontend
     build:
-      context: "C:\\Users\\user\\Documents\\Facu\\TP profesional\\SHM-React-website\\shm-nextjs-website"
+      context: "../SHM-React-website/shm-nextjs-website"
       dockerfile: Dockerfile
       args:
         ENV_VARIABLE: ${ENV_VARIABLE}
@@ -36,7 +36,7 @@ services:
   node-app:
     container_name: backend
     build:
-      context: ./SHM-website
+      context: ../SHM-website
       dockerfile: Dockerfile
       args:
         ENV_VARIABLE: ${ENV_VARIABLE}
