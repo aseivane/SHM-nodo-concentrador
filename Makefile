@@ -10,6 +10,6 @@ run:
 clean-docker-images:
 	sudo docker rmi $(sudo docker images --all -q)
 
-.PHONY: clean-docker-images
+.PHONY: clean-docker
 clean-docker-containers:
 	sudo docker rm $(sudo docker ps -q)
