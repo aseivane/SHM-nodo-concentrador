@@ -14,6 +14,7 @@ services:
 
   next-app:
     container_name: frontend
+    image: frontend
     build:
       context: "../SHM-React-website/shm-nextjs-website"
       dockerfile: Dockerfile
@@ -35,6 +36,7 @@ services:
 
   node-app:
     container_name: backend
+    image: backend
     build:
       context: ../SHM-API
       dockerfile: Dockerfile
@@ -52,6 +54,7 @@ services:
   
   mosquitto:
     container_name: mosquitto
+    image: mosquitto
     build:
       context: ./mosquitto
       args:
@@ -85,18 +88,7 @@ services:
 volumes:
   data:
     name: "mqtt-broker-data"
-  #busybox:
-  #  container_name: busybox
-  #  image: busybox:glibc
 
-  #  networks:
-  #    my_network:
-  #      aliases:
-  #        - busybox.local
-
-    
-
-  # Add more containers below (nginx, postgres, etc.)
 
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname
