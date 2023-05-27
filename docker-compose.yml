@@ -69,7 +69,7 @@ services:
         source: ./mosquitto/log/
         target: /mosquitto/log/
       - type: volume
-        source: data
+        source: mosquitto_data
         target: /mosquitto/data/
     ports:
       - target: 1883
@@ -85,9 +85,30 @@ services:
         aliases:
           - mosquitto.shm.com
 
+  filebrowser:
+    container_name: filebrowser
+    image: filebrowser/filebrowser
+    volumes:
+      - type: bind
+        source: ../
+        target: /srv
+      - type: bind
+        source: filebrowser/filebrowser.db
+        target: /database.db
+      # - type: volume
+      #   source: ./filebrowser/.filebrowser.json
+      #   target: /.filebrowser.json
+    ports:
+      - target: 80
+        published: 8080
+
 volumes:
-  data:
+  mosquitto_data:
     name: "mqtt-broker-data"
+  filebrowser:
+    name: "filebrowser files"
+
+  
 
 
 # Define a network, which allows containers to communicate
