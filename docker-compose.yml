@@ -110,12 +110,18 @@ services:
       - type: bind
         source: filebrowser/filebrowser.db
         target: /database.db
-      # - type: volume
-      #   source: ./filebrowser/.filebrowser.json
-      #   target: /.filebrowser.json
-    ports:
-      - target: 80
-        published: 8080
+      - type: bind
+        source: ./filebrowser/.filebrowser.json
+        target: /.filebrowser.json
+    # ports:
+    #   - target: 80
+    #     published: 8080
+    expose:
+      - 80
+    networks:
+      my_network:    
+        aliases:
+          - filebrowser.shm.com
 
 volumes:
   mosquitto_data:

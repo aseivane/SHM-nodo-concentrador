@@ -5,3 +5,10 @@ location ^~ /api {
     proxy_set_header X-RealIP $remote_addr;
     set $upstream_keepalive false;
 }
+
+location ^~ /files {
+    proxy_pass http://filebrowser:80; #necesita el /
+    proxy_set_header Host shm.com;
+    proxy_set_header X-RealIP $remote_addr;
+    set $upstream_keepalive false;
+}
