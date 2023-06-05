@@ -35,14 +35,11 @@ services:
       my_network:    
         aliases:
           - frontend.shm.com
-    #ports:
-    #  - "3000:3000"
     expose:
       - "3000"
     environment:
       - VIRTUAL_PORT=3000
       - VIRTUAL_HOST=shm.com
-      #- VIRTUAL_PATH=/
 
   node-app:
     container_name: backend
@@ -53,11 +50,6 @@ services:
       args:
         ENV_VARIABLE: ${ENV_VARIABLE}
     restart: always
-    # environment:
-    #   - VIRTUAL_PORT=3001
-    #   - VIRTUAL_HOST=backend.shm.com
-      #- VIRTUAL_PATH=/api/
-      #- VIRTUAL_DEST=/
     ports:
       - "3001:3001"
     expose:
@@ -105,7 +97,7 @@ services:
     image: filebrowser/filebrowser
     volumes:
       - type: bind
-        source: ../
+        source: ../SHM-API/public
         target: /srv
       - type: bind
         source: filebrowser/filebrowser.db
@@ -113,9 +105,6 @@ services:
       - type: bind
         source: ./filebrowser/.filebrowser.json
         target: /.filebrowser.json
-    # ports:
-    #   - target: 80
-    #     published: 8080
     expose:
       - 80
     networks:
