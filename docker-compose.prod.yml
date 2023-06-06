@@ -40,10 +40,6 @@ services:
     environment:
       - VIRTUAL_PORT=3000
       - VIRTUAL_HOST=shm.com
-    volumes:
-      - type: bind
-        source: ../SHM-React-website/shm-nextjs-website
-        target: /app
 
   node-app:
     container_name: backend
@@ -62,10 +58,6 @@ services:
       my_network:
         aliases:
           - backend.shm.com
-    volumes:
-      - type: bind
-        source: ../SHM-API
-        target: /app
   
   mosquitto:
     container_name: mosquitto
