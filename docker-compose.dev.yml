@@ -26,7 +26,7 @@ services:
     image: frontend
     build:
       context: "../SHM-React-website/shm-nextjs-website"
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       args:
         ENV_VARIABLE: ${ENV_VARIABLE}
         NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
@@ -36,21 +36,21 @@ services:
         aliases:
           - frontend.shm.com
     expose:
-      - "3000"
+      - "3002"
     environment:
-      - VIRTUAL_PORT=3000
+      - VIRTUAL_PORT=3002
       - VIRTUAL_HOST=shm.com
     volumes:
-      - type: bind
-        source: ../SHM-React-website/shm-nextjs-website
-        target: /app
+      - ../SHM-React-website/shm-nextjs-website:/app
+      - /app/node_modules
+      - /app/.next
 
   node-app:
     container_name: backend
     image: backend
     build:
       context: ../SHM-API
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       args:
         ENV_VARIABLE: ${ENV_VARIABLE}
     restart: always
@@ -63,9 +63,8 @@ services:
         aliases:
           - backend.shm.com
     volumes:
-      - type: bind
-        source: ../SHM-API
-        target: /app
+      - ../SHM-API:/app
+      - /app/node_modules
   
   mosquitto:
     container_name: mosquitto
