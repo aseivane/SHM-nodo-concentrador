@@ -42,8 +42,12 @@ services:
       - VIRTUAL_HOST=shm.com
     volumes:
       - ../SHM-React-website/shm-nextjs-website:/app
-      - /app/node_modules
-      - /app/.next
+      - type: volume
+        source: front_modules
+        target: /app/node_modules
+      - type: volume
+        source: front_next
+        target: /app/.next
 
   node-app:
     container_name: backend
@@ -64,7 +68,9 @@ services:
           - backend.shm.com
     volumes:
       - ../SHM-API:/app
-      - /app/node_modules
+      - type: volume
+        source: api_modules
+        target: /app/node_modules
   
   mosquitto:
     container_name: mosquitto
@@ -124,6 +130,12 @@ volumes:
     name: "mqtt-broker-data"
   filebrowser:
     name: "filebrowser files"
+  api_modules:
+    name: "api_node_modules"
+  front_modules:
+    name: "front_node_modules"
+  front_next:
+    name: "next"
 
   
 
