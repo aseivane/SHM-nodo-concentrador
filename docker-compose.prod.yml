@@ -9,6 +9,15 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - type: bind
+        source: ./nginx/nginx.conf
+        target: /etc/nginx/nginx.conf
+      - type: bind
+        source: ./nginx/conf.d
+        target: /etc/nginx/conf.d
+      - type: bind
+        source: ./nginx/vhost.d
+        target: /etc/nginx/vhost.d
     networks:
       - my_network
 
@@ -17,7 +26,7 @@ services:
     image: frontend
     build:
       context: "../SHM-React-website/shm-nextjs-website"
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
       args:
         ENV_VARIABLE: ${ENV_VARIABLE}
         NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
@@ -26,8 +35,6 @@ services:
       my_network:    
         aliases:
           - frontend.shm.com
-    ports:
-      - "3000:3000"
     expose:
       - "3000"
     environment:
@@ -39,7 +46,7 @@ services:
     image: backend
     build:
       context: ../SHM-API
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
       args:
         ENV_VARIABLE: ${ENV_VARIABLE}
     restart: always
@@ -90,17 +97,20 @@ services:
     image: filebrowser/filebrowser
     volumes:
       - type: bind
-        source: ../
+        source: ../SHM-API/public
         target: /srv
       - type: bind
         source: filebrowser/filebrowser.db
         target: /database.db
-      # - type: volume
-      #   source: ./filebrowser/.filebrowser.json
-      #   target: /.filebrowser.json
-    ports:
-      - target: 80
-        published: 8080
+      - type: bind
+        source: ./filebrowser/.filebrowser.json
+        target: /.filebrowser.json
+    expose:
+      - 80
+    networks:
+      my_network:    
+        aliases:
+          - filebrowser.shm.com
 
 volumes:
   mosquitto_data:

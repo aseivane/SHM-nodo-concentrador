@@ -1,0 +1,13 @@
+{
+    "port": 80,
+    "baseURL": "/files",
+    "database": "/database.db",
+    "log": "stdout",
+    "allowCommands": true,
+    "allowEdit": false,
+    "allowNew": true,
+    "auth": 
+    {
+        "method": "noauth"
+    }
+  }
