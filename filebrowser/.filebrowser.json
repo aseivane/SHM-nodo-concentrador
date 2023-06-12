@@ -6,8 +6,5 @@
     "allowCommands": true,
     "allowEdit": false,
     "allowNew": true,
-    "auth": 
-    {
-        "method": "noauth"
-    }
+    "authMethod": "noauth"
   }
