@@ -6,6 +6,9 @@ else
 	example_cmd:=export
 endif
 
+clean : clean-docker-images
+clean-docker-images : clean-docker-containers 
+
 
 .PHONY: prod
 prod:
@@ -22,12 +25,15 @@ dev:
 	# Up prod in detached mode
 	docker-compose -f docker-compose.dev.yml up -d
 
+.PHONY: clean
+clean-docker-images : clean-docker-images
+	echo "All clean"
 
 .PHONY: clean-docker-images
-clean-docker-images:
+clean-docker-images : clean-docker-containers 
 	docker rmi $$(docker images --all -q)
 
 
 .PHONY: clean-docker-containers
-clean-docker-containers:
+clean-docker-containers :
 	docker rm -f $$(docker ps -q)
