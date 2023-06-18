@@ -26,14 +26,18 @@ dev:
 	docker-compose -f docker-compose.dev.yml up -d
 
 .PHONY: clean
-clean-docker-images : clean-docker-images
+clean-docker-images : clean-docker-volumes
 	echo "All clean"
+
+.PHONY: clean-docker-volumes
+clean-docker-volumes : clean-docker-containers 
+	docker volume rm $$(docker volume ls -q) 2> /dev/null
 
 .PHONY: clean-docker-images
 clean-docker-images : clean-docker-containers 
-	docker rmi $$(docker images --all -q)
+	docker rmi $$(docker images --all -q) 2> /dev/null
 
 
 .PHONY: clean-docker-containers
 clean-docker-containers :
-	docker rm -f $$(docker ps -q)
+	docker rm -f -v $$(docker ps -q) 2> /dev/null
