@@ -3,7 +3,7 @@ version: '3.8'
 services:
   nginx:
     container_name: nginxproxy
-    image: nginxproxy/nginx-proxy:alpine
+    image: nginxproxy/nginx-proxy:1.3.1-alpine
     ports:
       - "80:80"
       - "443:443"
@@ -23,7 +23,7 @@ services:
 
   next-app:
     container_name: frontend
-    image: frontend
+    image: frontend:0.2
     build:
       context: "../SHM-React-website/shm-nextjs-website"
       dockerfile: Dockerfile.prod
@@ -36,22 +36,20 @@ services:
         aliases:
           - frontend.shm.com
     expose:
-      - "3000"
+      - "3001"
     environment:
-      - VIRTUAL_PORT=3000
+      - VIRTUAL_PORT=3001
       - VIRTUAL_HOST=shm.com
 
   node-app:
     container_name: backend
-    image: backend
+    image: backend:0.2
     build:
       context: ../SHM-API
       dockerfile: Dockerfile.prod
       args:
         ENV_VARIABLE: ${ENV_VARIABLE}
     restart: always
-    ports:
-      - "3001:3001"
     expose:
       - "3001"
     networks:
@@ -61,7 +59,7 @@ services:
   
   mosquitto:
     container_name: mosquitto
-    image: mosquitto
+    image: mosquitto:2.0
     build:
       context: ./mosquitto
       args:
@@ -94,7 +92,7 @@ services:
 
   filebrowser:
     container_name: filebrowser
-    image: filebrowser/filebrowser
+    image: filebrowser/filebrowser:v2.23.0
     volumes:
       - type: bind
         source: ../SHM-API/public
