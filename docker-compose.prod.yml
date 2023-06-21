@@ -110,6 +110,27 @@ services:
         aliases:
           - filebrowser.shm.com
 
+  tictoc:
+    container_name: tictoc
+    image: tictoc:1.0
+    build:
+      context: ./tic-toc
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080/udp"
+    expose:
+      - 8080/udp
+    environment:
+      - VIRTUAL_PORT=8080
+    volumes:
+      - type: bind
+        source: ./tic-toc/log/
+        target: /app/log/
+    networks:
+      my_network:    
+        aliases:
+          - tictoc.shm.com
+
 volumes:
   mosquitto_data:
     name: "mqtt-broker-data"
