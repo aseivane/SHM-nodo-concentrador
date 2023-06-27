@@ -136,12 +136,6 @@ services:
       - "8080:8080/udp"
     expose:
       - 8080/udp
-    environment:
-      - VIRTUAL_PORT=8080
-    volumes:
-      - type: bind
-        source: ./tic-toc/log/
-        target: /app/log/
     networks:
       my_network:    
         aliases:
@@ -166,4 +160,4 @@ volumes:
 # with each other, by using their container name as a hostname
 networks:
   my_network:
-    external: true
+    name: my_network
