@@ -59,13 +59,7 @@ services:
   
   mosquitto:
     container_name: mosquitto
-    image: mosquitto:2.0
-    build:
-      context: ./mosquitto
-      args:
-        - USER=${USER}
-        - GID=${GID}
-        - UID=${UID}
+    image: eclipse-mosquitto:2
     volumes:
       - type: bind
         source: ./mosquitto/config/
