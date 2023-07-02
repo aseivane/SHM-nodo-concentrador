@@ -27,8 +27,6 @@ services:
     build:
       context: "../SHM-React-website/shm-nextjs-website"
       dockerfile: Dockerfile.dev
-      args:
-        NEXT_PUBLIC_HOST_NAME: ${HOST_DOMAIN}
     restart: always
     networks:
       my_network:    
@@ -39,6 +37,7 @@ services:
     environment:
       - VIRTUAL_PORT=3002
       - VIRTUAL_HOST=shm.com
+      - NEXT_PUBLIC_HOST_NAME=${HOST_DOMAIN}
     volumes:
       - ../SHM-React-website/shm-nextjs-website:/app
       - type: volume
