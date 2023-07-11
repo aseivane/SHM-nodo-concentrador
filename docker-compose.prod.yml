@@ -18,6 +18,7 @@ services:
       - type: bind
         source: ./nginx/vhost.d
         target: /etc/nginx/vhost.d
+    restart: always
     networks:
       - my_network
 
@@ -78,6 +79,7 @@ services:
         published: 9001
         protocol: tcp
         mode: host
+    restart: always
     networks:
       my_network:    
         aliases:
@@ -96,6 +98,7 @@ services:
       - type: bind
         source: ./filebrowser/.filebrowser.json
         target: /.filebrowser.json
+    restart: always
     expose:
       - 80
     networks:
@@ -111,6 +114,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080/udp"
+    restart: always
     expose:
       - 8080/udp
     networks:
