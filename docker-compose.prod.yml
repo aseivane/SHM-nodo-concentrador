@@ -90,7 +90,7 @@ services:
     image: filebrowser/filebrowser:v2.23.0
     volumes:
       - type: bind
-        source: ../SHM-API/public
+        source: ../SHM-API/public/datos/mediciones
         target: /srv
       - type: bind
         source: filebrowser/filebrowser.db
