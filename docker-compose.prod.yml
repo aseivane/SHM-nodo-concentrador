@@ -21,6 +21,13 @@ services:
     restart: always
     networks:
       - my_network
+    logging:
+      options:
+        max-size: "10k"
+        max-file: "1" 
+        labels: "nginx"
+        env: "production"
+      driver: json-file
 
   next-app:
     container_name: frontend
@@ -40,6 +47,13 @@ services:
     environment:
       - VIRTUAL_PORT=3002
       - VIRTUAL_HOST=shm.com
+    logging:
+      options:
+        max-size: "10k"
+        max-file: "1" 
+        labels: "frontend"
+        env: "production"
+      driver: json-file
 
   node-app:
     container_name: backend
@@ -56,6 +70,13 @@ services:
           - backend.shm.com
     volumes:
       - ../SHM-API/public:/app/public
+    logging:
+      options:
+        max-size: "10k"
+        max-file: "1" 
+        labels: "backend"
+        env: "production"
+      driver: json-file
   
   mosquitto:
     container_name: mosquitto
@@ -84,6 +105,13 @@ services:
       my_network:    
         aliases:
           - mosquitto.shm.com
+    logging:
+      options:
+        max-size: "10k"
+        max-file: "1" 
+        labels: "mosquitto"
+        env: "production"
+      driver: json-file
 
   filebrowser:
     container_name: filebrowser
@@ -105,6 +133,13 @@ services:
       my_network:    
         aliases:
           - filebrowser.shm.com
+    logging:
+      options:
+        max-size: "10k"
+        max-file: "1" 
+        labels: "filebrowser"
+        env: "production"
+      driver: json-file
 
   tictoc:
     container_name: tictoc
@@ -121,6 +156,13 @@ services:
       my_network:    
         aliases:
           - tictoc.shm.com
+    logging:
+      options:
+        max-size: "10k"
+        max-file: "1" 
+        labels: "tictoc"
+        env: "production"
+      driver: json-file
 
 volumes:
   mosquitto_data:
