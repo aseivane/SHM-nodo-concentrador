@@ -1,1 +1,2 @@
-[Why this config?](https://manpages.org/etc-network-interfaces/5)
+[IPtables config to enable nat in case want to access wifi internet through eth0](https://manpages.org/etc-network-interfaces/5)
+[Wifi powersave dissabled prevent connenctivity issues](https://forum.clockworkpi.com/t/how-to-disable-wifi-power-save-to-prevent-disconnects/933)
