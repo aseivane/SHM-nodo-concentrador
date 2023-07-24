@@ -6,15 +6,12 @@ Colour='\033[1;31m'
 less='\033[0m'
 requiredver='7.3.76'
 
-echo -e "${Colour}By using this script, you'll update the system, install the stable UniFi controller of your choice and install Pi-hole.\nUse CTRL+C to cancel the script\n\n${less}"
+echo -e "${Colour}By using this script, you'll update the system, install the stable UniFi controller of your choice\nUse CTRL+C to cancel the script\n\n${less}"
 read -p "Please enter a STABLE version (e.g: 7.2.95) or press enter for version 7.3.76: " version
 
 if [[ -z "$version" ]]; then
 	version='7.3.76'
 fi
-
-echo -e "${Colour}\n\nAdding the Raspbian Stretch sources.list for MongoDB compatability.\n\n${less}"
-echo 'deb http://archive.raspbian.org/raspbian stretch main contrib non-free rpi' | sudo tee /etc/apt/sources.list.d/raspbian_stretch_for_mongodb.list
 
 echo -e "${Colour}\n\nThe system will now upgrade all the software and firmware, as well as clean up old/unused packages.\n\n${less}"
 sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt-get autoclean -y
