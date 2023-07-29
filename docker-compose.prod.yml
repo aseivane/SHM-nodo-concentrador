@@ -10,13 +10,13 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - type: bind
-        source: ./nginx/nginx.conf
+        source: ./docker/nginx/nginx.conf
         target: /etc/nginx/nginx.conf
       - type: bind
-        source: ./nginx/conf.d
+        source: ./docker/nginx/conf.d
         target: /etc/nginx/conf.d
       - type: bind
-        source: ./nginx/vhost.d
+        source: ./docker/nginx/vhost.d
         target: /etc/nginx/vhost.d
     restart: always
     networks:
@@ -41,12 +41,12 @@ services:
     networks:
       my_network:    
         aliases:
-          - frontend.shm.com
+          - frontend.shm-fiuba.edu
     expose:
       - "3002"
     environment:
       - VIRTUAL_PORT=3002
-      - VIRTUAL_HOST=shm.com
+      - VIRTUAL_HOST=shm-fiuba.edu
     logging:
       options:
         max-size: "10k"
@@ -67,7 +67,7 @@ services:
     networks:
       my_network:
         aliases:
-          - backend.shm.com
+          - backend.shm-fiuba.edu
     volumes:
       - ../SHM-API/public:/app/public
     logging:
@@ -83,10 +83,10 @@ services:
     image: eclipse-mosquitto:2
     volumes:
       - type: bind
-        source: ./mosquitto/config/
+        source: ./docker/mosquitto/config/
         target: /mosquitto/config/
       - type: bind
-        source: ./mosquitto/log/
+        source: ./docker/mosquitto/log/
         target: /mosquitto/log/
       - type: volume
         source: mosquitto_data
@@ -104,7 +104,7 @@ services:
     networks:
       my_network:    
         aliases:
-          - mosquitto.shm.com
+          - mosquitto.shm-fiuba.edu
     logging:
       options:
         max-size: "10k"
@@ -121,10 +121,10 @@ services:
         source: ../SHM-API/public/datos/mediciones
         target: /srv
       - type: bind
-        source: filebrowser/filebrowser.db
+        source: ./docker/filebrowser/filebrowser.db
         target: /database.db
       - type: bind
-        source: ./filebrowser/.filebrowser.json
+        source: ./docker/filebrowser/.filebrowser.json
         target: /.filebrowser.json
     restart: always
     expose:
@@ -132,7 +132,7 @@ services:
     networks:
       my_network:    
         aliases:
-          - filebrowser.shm.com
+          - filebrowser.shm-fiuba.edu
     logging:
       options:
         max-size: "10k"
@@ -145,7 +145,7 @@ services:
     container_name: tictoc
     image: tictoc:1.0
     build:
-      context: ./tic-toc
+      context: ./docker/tic-toc
       dockerfile: Dockerfile
     ports:
       - "8080:8080/udp"
@@ -155,7 +155,7 @@ services:
     networks:
       my_network:    
         aliases:
-          - tictoc.shm.com
+          - tictoc.shm-fiuba.edu
     logging:
       options:
         max-size: "10k"
