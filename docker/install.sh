@@ -27,7 +27,7 @@ echo -e "\nInstalling: \nDOCKER_VERSION=$DOCKER_VERSION\nCOMPOSE_VERSION=$COMPOS
 apt-get install -y docker-ce=$DOCKER_VERSION docker-ce-cli=$DOCKER_VERSION containerd.io docker-compose-plugin=$COMPOSE_VERSION
 wait
 
-$DOCKER_USER=$USER
+DOCKER_USER=user
 echo -e "\nAdding $DOCKER_USER to docker group"
 groupadd docker
 usermod -aG docker $DOCKER_USER
