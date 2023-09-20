@@ -7,10 +7,10 @@ less='\033[0m'
 requiredver='7.3.76'
 
 echo -e "${Colour}By using this script, you'll update the system, install the stable UniFi controller of your choice\nUse CTRL+C to cancel the script\n\n${less}"
-read -p "Please enter a STABLE version (e.g: 7.2.95) or press enter for version 7.3.76: " version
+read -p "Please enter a STABLE version (e.g: 7.2.95) or press enter for version 7.5.176: " version
 
 if [[ -z "$version" ]]; then
-	version='7.3.76'
+	version='7.5.176-1136930355'
 fi
 
 echo -e "${Colour}\n\nThe system will now upgrade all the software and firmware, as well as clean up old/unused packages.\n\n${less}"
@@ -29,12 +29,25 @@ if [ "$(printf '%s\n' "$requiredver" "$version" | sort -V | head -n1)" = "$requi
 		sudo apt install openjdk-11-jre-headless -y
 	fi	
  else
-     echo -e "${Colour}\n\nJava 8 is required for the chosen version. Installing now.\n\n${less}"
-     sudo apt install openjdk-8-jre-headless jsvc libcommons-daemon-java -y
+     echo -e "${Colour}\n\nJava 17 is required for the chosen version. Installing now.\n\n${less}"
+     sudo apt install openjdk-11-jre-headless -y
  fi
  
 echo -e "${Colour}\n\nMongoDB will now be installed as it's a dependency of UniFi.\n\n${less}"
-sudo apt install mongodb-server mongodb-clients -y
+sudo apt install -y rng-tools
+sudo mv rng-tools-debian /etc/default/rng-tools-debian
+sudo systemctl restart rng-tools
+wait
+
+wget http://ports.ubuntu.com/pool/main/o/openssl/libssl1.0.0_1.0.2g-1ubuntu4_arm64.deb -O libssl1.0.deb
+sudo dpkg -i libssl1.0.deb
+wait
+
+wget https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/3.6/multiverse/binary-arm64/mongodb-org-server_3.6.22_arm64.deb -O mongodb.deb
+sudo dpkg -i mongodb.deb
+wait
+sudo systemctl enable mongod
+sudo systemctl start mongod
 
 echo -e "${Colour}\n\nThe UniFi controller will be installed now.\n\n${less}"
 sudo dpkg -i unifi_$version\_sysvinit_all.deb; sudo apt install -f -y
